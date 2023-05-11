@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Todos>
+
+@{
+    ViewData["Title"] = "GetAllTodos";
+}
+
+<h1>GetAllTodos</h1>
+@using (Html.BeginForm())
+{
+        <div class="search-form row g-0">
+    <div class="form-group col-10 search-pad">
+            @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Enter Title" })
+    </div>
+    <div class="form-group col-2">
+        <input type="submit" value="Search" class="btn btn-custom btn-block" />
+    </div>
+        </div>
+}
+<p>
+    <a asp-action="Create" asp-controller="Todo" >Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Completed)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Completed)
+            </td>
+            <td>
+
+                <a asp-controller="Todo" asp-action="Update" asp-route-todoId="@item.Id">Edit</a> |
+                <a asp-controller="Todo" asp-action="Details" asp-route-todoId="@item.Id">Details</a> |
+                <a asp-controller="Todo" asp-action="Delete" asp-route-todoId="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
